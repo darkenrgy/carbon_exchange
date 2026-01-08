@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: dev
+
+#logging
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.security: DEBUG
+
+#security jwt
+security:
+  jwt:
+    secret: carbon_traders_secret_key_2026
+    expiration: 86400000   # 1 day in ms
+    issuer: carbon-traders-platform
+
+#cons config
+cors:
+  allowed-origins:
+    - http://localhost:3000
+    - http://localhost:5173
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+  allowed-headers:
+    - Authorization
+    - Content-Type
+
+#ai config
+ai:
+  verification:
+    enabled: true
+    model: crop-verification-v1
+    confidence-threshold: 0.85
+
+#blockchain config
+blockchain:
+  network: polygon
+  rpc-url: https://polygon-rpc.com
+  contract-address: 0xABC123456789
+  gas-limit: 3000000
+#company
+company:
+  dashboard:
+    profit-per-credit: 120
+
