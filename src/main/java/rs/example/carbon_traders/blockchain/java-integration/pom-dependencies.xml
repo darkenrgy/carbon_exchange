@@ -1,0 +1,31 @@
+# Add these to your pom.xml in the <dependencies> section
+
+## Web3j Dependencies
+<dependency>
+    <groupId>org.web3j</groupId>
+    <artifactId>core</artifactId>
+    <version>4.9.7</version>
+</dependency>
+<dependency>
+    <groupId>org.web3j</groupId>
+    <artifactId>contracts</artifactId>
+    <version>4.9.7</version>
+</dependency>
+<dependency>
+    <groupId>org.web3j</groupId>
+    <artifactId>crypto</artifactId>
+    <version>4.9.7</version>
+</dependency>
+
+## Logging (if not already present)
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-logging</artifactId>
+</dependency>
+
+## Lombok (if not already present)
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <optional>true</optional>
+</dependency>

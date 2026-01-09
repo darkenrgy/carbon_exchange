@@ -1,0 +1,28 @@
+# application.yml - Add these configurations
+
+## ===== BLOCKCHAIN CONFIGURATION =====
+blockchain:
+  # Local Development (Hardhat node)
+  # rpc-url: "http://localhost:8545"
+  
+  # Testnet (Sepolia) - Use public RPC (free)
+  rpc-url: "https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+  
+  # Mainnet (production - not recommended for testing)
+  # rpc-url: "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+  
+  # Contract deployed address (update after deployment)
+  contract-address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  
+  # Private key of account that will issue credits (keep SECRET!)
+  # NEVER commit this to git - use environment variables in production
+  private-key: "${BLOCKCHAIN_PRIVATE_KEY:0x0000000000000000000000000000000000000000000000000000000000000000}"
+  
+  # Admin/issuer wallet address
+  admin-address: "${BLOCKCHAIN_ADMIN_ADDRESS:0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266}"
+
+## ===== LOGGING =====
+logging:
+  level:
+    rs.example.carbon_traders.blockchain: DEBUG
+    org.web3j: INFO

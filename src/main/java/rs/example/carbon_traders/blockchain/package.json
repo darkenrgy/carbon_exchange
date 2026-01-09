@@ -1,0 +1,25 @@
+{
+  "name": "carbon-traders-blockchain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "clean": "hardhat clean",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run deploy/01_deploy_carbon_token.js --network localhost",
+    "deploy:sepolia": "hardhat run deploy/01_deploy_carbon_token.js --network sepolia",
+    "auto:local": "hardhat run scripts/auto_local.js --network hardhat",
+    "issue": "hardhat run scripts/issue_batch.js --network sepolia",
+    "retire": "hardhat run scripts/retire_batch.js --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.20.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.5"
+  }
+}
