@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import rs.example.carbon_traders.auth.dto.JwtResponse;
 import rs.example.carbon_traders.auth.dto.LoginRequest;
+import rs.example.carbon_traders.auth.dto.RegisterRequest;
 import rs.example.carbon_traders.auth.service.AuthService;
 import rs.example.carbon_traders.user.entity.User;
 import rs.example.carbon_traders.user.service.UserService;
@@ -23,6 +24,7 @@ public class AuthController {
         this.userService = userService;
     }
 
+    // LOGIN
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
             @RequestBody LoginRequest request) {
@@ -40,5 +42,16 @@ public class AuthController {
                 new JwtResponse(token, user.getRole().name())
         );
     }
+
+    //  REGISTER
+    @PostMapping("/register")
+    public ResponseEntity<String> register(
+            @RequestBody RegisterRequest request) {
+
+        userService.registerUser(request);
+
+        return ResponseEntity.ok("User registered successfully");
+    }
 }
+
 
