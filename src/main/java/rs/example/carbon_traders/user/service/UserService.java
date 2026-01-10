@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rs.example.carbon_traders.auth.dto.RegisterRequest;
 import rs.example.carbon_traders.user.entity.User;
 import rs.example.carbon_traders.user.enums.Role;
 import rs.example.carbon_traders.user.repository.UserRepository;
@@ -22,39 +23,39 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-//       USER REGISTRATION
-    public User registerUser(String fullName,
-                             String email,
-                             String rawPassword,
-                             Role role) {
+    // ===================== USER REGISTRATION =====================
+    public User registerUser(RegisterRequest request) {
 
-        // 1. Check if email already exists
-        if (userRepository.existsByEmail(email)) {
+        // Check if email already exists
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already registered");
         }
 
-        // 2. Create new User object
+        //  Convert & validate role
+        Role role = Role.valueOf(request.getRole().toUpperCase());
+        if (role == Role.ADMIN) {
+            throw new RuntimeException("Admin registration is not allowed");
+        }
+
+        // Create User
         User user = new User();
-        user.setFullName(fullName);
-        user.setEmail(email);
-
-        // 3. Encrypt password
-        user.setPassword(passwordEncoder.encode(rawPassword));
-
-        // 4. Assign role
+        user.setFullName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
         user.setActive(true);
 
-        // 5. Save to database
+        //  Save to DB
         return userRepository.save(user);
     }
-//       FIND USER BY EMAIL
-//       (Used for Login & JWT)
+
+    //  FIND USER BY EMAIL
+    // Used for Login & JWT
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-//       USER VALIDATION
+    // USER VALIDATION (LOGIN)
     public User validateUser(String email, String rawPassword) {
 
         User user = userRepository.findByEmail(email)
@@ -71,4 +72,5 @@ public class UserService {
         return user;
     }
 }
+
 
